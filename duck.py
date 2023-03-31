@@ -52,7 +52,6 @@ def format_search(search, filter_websites):
 
 def main(search):
     just_fix_windows_console()
-    # TODO add filter?
     filter_websites = ["wikipedia.org", "stackoverflow.com",
                        "github.com", "geeksforgeeks.com",
                        "reddit.com"]
