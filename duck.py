@@ -52,12 +52,11 @@ def format_search(search, filter_websites):
 
 def main(search):
     just_fix_windows_console()
-    filter_websites = ["wikipedia.org", "stackoverflow.com",
-                       "github.com", "geeksforgeeks.com",
-                       "reddit.com"]
-#     search = format_search(search, filter_websites)
-    print(search)
-    results = ddg(search, max_results=10)
+    # TODO add filter?
+#     filter_websites = ["wikipedia.org", "stackoverflow.com",
+#                        "github.com", "geeksforgeeks.com",
+#                        "reddit.com"]
+    results = ddg(search, max_results=5)
     instant = ddg_answers(search)
     if instant:
         format_instant(instant[0])
