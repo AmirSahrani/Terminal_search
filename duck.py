@@ -27,7 +27,7 @@ def text_to_lines(text, max_length):
     return list_to_string(lines)
 
 
-def format_results(results, max_length=60):
+def format_results(results, max_length=70):
     for result in results:
         print(Fore.GREEN + result["title"])
         print(Fore.BLUE + result["href"])
@@ -35,7 +35,7 @@ def format_results(results, max_length=60):
         print(text_to_lines(result["body"], max_length), "\n")
 
 
-def format_instant(instant):
+def format_instant(instant, max_length=70):
     print(Fore.RED + "Instant Answer:")
     print(Fore.BLUE + instant["url"])
     print(Fore.YELLOW)
@@ -45,7 +45,7 @@ def format_instant(instant):
 def format_search(search, filter_websites):
     search += " ("
     for website in filter_websites:
-        search += "site: " + website + " OR "
+        search += "site:" + website + " OR "
     search = search[:-4] + ")"
     return search
 
@@ -53,14 +53,16 @@ def format_search(search, filter_websites):
 def main(search):
     just_fix_windows_console()
     # TODO add filter?
-#     filter_websites = ["wikipedia.org", "stackoverflow.com",
-#                        "github.com", "geeksforgeeks.com",
-#                        "reddit.com"]
+    filter_websites = ["wikipedia.org", "stackoverflow.com",
+                       "github.com", "geeksforgeeks.com",
+                       "reddit.com"]
+    search = format_search(search, filter_websites)
     results = ddg(search, max_results=5)
     instant = ddg_answers(search)
+    max_length = 70
     if instant:
-        format_instant(instant[0])
-    format_results(results)
+        format_instant(instant[0], max_length)
+    format_results(results, max_length)
 
 
 if __name__ == "__main__":
