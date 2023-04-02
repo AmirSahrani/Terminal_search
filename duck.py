@@ -50,19 +50,17 @@ def format_search(search, filter_websites):
     return search
 
 
-def main(search):
+def main(search, filter_websites):
     just_fix_windows_console()
     prompt = search.split("-")[0]
+    filter = search.split("-")
     try:
-        filter = search.split("-")[-1]
+        filter = int(filter[1])-1
     except IndexError:
         filter = 0
-    if filter == "1":
+    if filter:
         print("Filtered search")
-        filter_websites = ["wikipedia.org", "stackoverflow.com",
-                           "github.com", "geeksforgeeks.com",
-                           "reddit.com"]
-        prompt = format_search(prompt, filter_websites)
+        prompt = format_search(prompt, filter_websites[filter])
 
     results = ddg(prompt, max_results=5)
     instant = ddg_answers(prompt)
@@ -73,5 +71,10 @@ def main(search):
     format_results(results, max_length)
 
 
+filter_websites = [["wikipedia.org", "stackoverflow.com",
+                    "github.com", "geeksforgeeks.com",
+                   "reddit.com"],
+                   ["wikipedia.org", "youtube.com"]]
+
 if __name__ == "__main__":
-    main(" ".join(sys.argv[1:]))
+    main(" ".join(sys.argv[1:]), filter_websites)
