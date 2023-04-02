@@ -52,13 +52,22 @@ def format_search(search, filter_websites):
 
 def main(search):
     just_fix_windows_console()
-    filter_websites = ["wikipedia.org", "stackoverflow.com",
-                       "github.com", "geeksforgeeks.com",
-                       "reddit.com"]
-    search = format_search(search, filter_websites)
-    results = ddg(search, max_results=5)
-    instant = ddg_answers(search)
+    prompt = search.split("-")[0]
+    try:
+        filter = search.split("-")[-1]
+    except IndexError:
+        filter = 0
+    if filter == "1":
+        print("Filtered search")
+        filter_websites = ["wikipedia.org", "stackoverflow.com",
+                           "github.com", "geeksforgeeks.com",
+                           "reddit.com"]
+        prompt = format_search(prompt, filter_websites)
+
+    results = ddg(prompt, max_results=5)
+    instant = ddg_answers(prompt)
     max_length = 70
+
     if instant:
         format_instant(instant[0], max_length)
     format_results(results, max_length)
